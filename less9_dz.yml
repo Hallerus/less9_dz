@@ -1,0 +1,15 @@
+---
+- name: roles to dev
+  hosts: dev
+  
+  roles:
+    - common
+    - dev
+
+- name: roles to prod
+  hosts: prod
+
+  roles:
+    - common
+    - prod
+
