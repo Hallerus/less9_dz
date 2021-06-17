@@ -27,8 +27,8 @@
     shell: mvn --file "{{ boxfuse_path }}/pom.xml" package
 
   - name: copy artifact to prod machine
-    synchronize: 
+    synchronize:
       mode: pull
-      src: "{{ boxfuse_path }}/target/hello-1.0.war"
-      dest: "{{ groups['prod'][0] }}{{ tomcat_path }}/webapps/"
-#    delegate_to: "{{ groups['dev'][0] }}"
+      src: "{{ groups['dev'][0] }}{{ boxfuse_path }}/target/hello-1.0.war"
+      dest: "{{ groups['prod'][0] }}{{ tomcat_path }}/webapps/hello-1.0.war"
+    delegate_to: 127.0.0.1
