@@ -14,21 +14,21 @@
 
   - name: create boxfuse directory
     file:
-      path: {{ boxfuse_path }}
+      path: "{{ boxfuse_path }}"
       state: directory
       mode: 0755
 
   - name: downloading the repository from GitHub
     git:
       repo: https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
-      dest: {{ boxfuse_path }}
+      dest: "{{ boxfuse_path }}"
 
   - name: building WAR file in Maven
-    shell: mvn --file {{ boxfuse_path }}/pom.xml package
+    shell: mvn --file "{{ boxfuse_path }}"/pom.xml package
 
   - name: copy artifact to prod machine
     synchronize:
       mode: pull      
-      src: {{ boxfuse_path }}/target/hello-1.0.war
-      dest: {{ tomcat_path }}/webapps/
-    delegate_to: {{ groups['prod'] }}
+      src: "{{ boxfuse_path }}"/target/hello-1.0.war
+      dest: "{{ tomcat_path }}"/webapps/
+    delegate_to: "{{ groups['prod'] }}"
