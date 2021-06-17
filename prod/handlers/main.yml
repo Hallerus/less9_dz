@@ -1,2 +1,10 @@
 ---
 # handlers file for prod
+# start and enable Tomcat service
+
+- name: restart tomcat
+  systemd:
+    name: tomcat
+    state: started
+    enabled: true
+    daemon_reload: true

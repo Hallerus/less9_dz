@@ -16,37 +16,31 @@
     home: /user/share/tomcat
     createhome: no
 
-- name: create /opt/tomcat directory
+- name: create tomcat directory
   file:
-    path: /opt/tomcat
+    path: {{ tomcat_path }}
     state: directory
     mode: 0755
 
 - name: download & unarchive
   unarchive:
     src: https://apache-mirror.rbc.ru/pub/apache/tomcat/tomcat-9/v9.0.46/bin/apache-tomcat-9.0.46.tar.gz
-    dest: /opt/tomcat
+    dest: {{ tomcat_path }}
     remote_src: yes
     extra_opts: [--strip-components=1]
 
 - name: Change ownership
   file:
-    path: /opt/tomcat
+    path: {{ tomcat_path }}
     owner: tomcat
     group: tomcat
     mode: "u+rwx,g+rx,o=rx"
     recurse: yes
-    state: directory      
+    state: directory
 
-- name: Copy Tomcat service from local to remote
-  copy:
-     src: tomcat.service
-     dest: /etc/systemd/system/
+- name: Config tomcat service
+  template:
+     src: tomcat.service.j2
+     dest: /etc/systemd/system/tomcat.service
      mode: 0755
-
-- name: Start and enable Tomcat service
-  systemd:
-    name: tomcat
-    state: started
-    enabled: true
-    daemon_reload: true
+  notify: restart tomcat

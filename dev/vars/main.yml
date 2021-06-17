@@ -1,2 +1,4 @@
 ---
 # vars file for dev
+boxfuse_path: /tmp/boxfuse
+tomcat_path: /opt/tomcat
