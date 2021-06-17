@@ -30,5 +30,5 @@
     synchronize: 
       mode: pull
       src: "{{ boxfuse_path }}/target/hello-1.0.war"
-      dest: "{{ tomcat_path }}/webapps/"
-    delegate_to: "{{ groups['dev'][0] }}"
+      dest: "{{ groups['prod'][0] }}{{ tomcat_path }}/webapps/"
+#    delegate_to: "{{ groups['dev'][0] }}"
