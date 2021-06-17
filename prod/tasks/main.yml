@@ -18,20 +18,20 @@
 
 - name: create tomcat directory
   file:
-    path: "{{ tomcat_path }}"
+    path: {{ tomcat_path }}
     state: directory
     mode: 0755
 
 - name: download & unarchive
   unarchive:
     src: https://apache-mirror.rbc.ru/pub/apache/tomcat/tomcat-9/v9.0.46/bin/apache-tomcat-9.0.46.tar.gz
-    dest: "{{ tomcat_path }}"
+    dest: {{ tomcat_path }}
     remote_src: yes
     extra_opts: [--strip-components=1]
 
 - name: Change ownership
   file:
-    path: "{{ tomcat_path }}"
+    path: {{ tomcat_path }}
     owner: tomcat
     group: tomcat
     mode: "u+rwx,g+rx,o=rx"
